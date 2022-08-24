@@ -62,6 +62,6 @@ def download(url: str, outpath: str = "./"):
             os.remove(mp4_path)
 
 download(
-    "https://www.youtube.com/playlist?list=PL4Qsk8HhL0PtunPc8jEADP36ndjdmlwQE",
+    "https://www.youtube.com/playlist?list=PL9z83dt87nBVgjafaXf6WtqazRvPzcAID",
     "./test"
 )
