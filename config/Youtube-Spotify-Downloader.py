@@ -14,6 +14,8 @@ from eyed3.id3 import Tag
 from eyed3.id3.frames import ImageFrame
 from PIL import Image
 
+#thumbnail
+import pafy
 
 
 #------------------------------
@@ -21,9 +23,13 @@ from PIL import Image
 #------------------------------
 
 def download():
-    url = input("Add playlist: ")
+    global url
     global folder
+    global playlist 
+
+    url = input("Add playlist: ")
     folder = input("Add folder: ")
+
     playlist = Playlist(url)
 
     #prints each video url, which is the same as iterating through playlist.video_urls
@@ -38,9 +44,6 @@ def download():
     # for url in playlist:
     #     YouTube(url).streams.first().download("./test")
    
-    # global folder 
-    # folder = outpath
-   
     # global file
     for file in os.listdir(folder):
         if re.search('mp4', file):
@@ -50,25 +53,10 @@ def download():
             new_file.write_audiofile(mp3_path)
             os.remove(mp4_path)
 
-        # if re.search('mp3', file):
-        #     os.rename()
-
-# url = input("Add playlist: ")
-# folder = input("Add folder: ")
-   
 download()
 
 # "https://www.youtube.com/playlist?list=PL9z83dt87nBUz5T9_ZtH71eVhID6JYSqD"
 # "./test"
-
-# for file in os.listdir("test"):
-#     # if glob.glob("./*.mp3"):
-# global audiofile
-# audiofile = eyed3.load("test/te.mp3")
-
-# for file in os.listdir(folder):
-# os.chdir(folder)
-
 
 
 def rename():
@@ -86,4 +74,14 @@ def rename():
 
 rename()
 
+def thumbnail():
+    # web = "https://www.youtube.com/watch?v=IJbBOANg8CQ&list=PL9z83dt87nBUz5T9_ZtH71eVhID6JYSqD&index=1"
+    # getting video
+    video = pafy.new(url) 
+    
+    # getting thumbnail of the video
+    value = video.thumb
+    print("url: "+ value)
+
+thumbnail()
 
