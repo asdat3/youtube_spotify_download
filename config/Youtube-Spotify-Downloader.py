@@ -1,5 +1,6 @@
 from fileinput import filename
 import random, os, re, glob
+from timeit import repeat
 from unicodedata import name
 from pytube import YouTube
 import youtube_dl
@@ -19,9 +20,10 @@ from PIL import Image
 # Youtube-Spotify-Downloader
 #------------------------------
 
-
-def download(url: str, outpath: str = "./"):
-
+def download():
+    url = input("Add playlist: ")
+    global folder
+    folder = input("Add folder: ")
     playlist = Playlist(url)
 
     #prints each video url, which is the same as iterating through playlist.video_urls
@@ -31,14 +33,15 @@ def download(url: str, outpath: str = "./"):
     for vid in playlist.videos:
         print(vid)
     for url in playlist:
-        YouTube(url).streams.filter(only_audio=True).first().download(outpath)
+        YouTube(url).streams.filter(only_audio=True).first().download(folder)
         
     # for url in playlist:
     #     YouTube(url).streams.first().download("./test")
    
-    global folder 
-    folder = outpath
+    # global folder 
+    # folder = outpath
    
+    # global file
     for file in os.listdir(folder):
         if re.search('mp4', file):
             mp4_path = os.path.join(folder,file)
@@ -50,10 +53,13 @@ def download(url: str, outpath: str = "./"):
         # if re.search('mp3', file):
         #     os.rename()
 
-download(
-    "https://www.youtube.com/playlist?list=PL9z83dt87nBUz5T9_ZtH71eVhID6JYSqD",
-    "./test"
-)
+# url = input("Add playlist: ")
+# folder = input("Add folder: ")
+   
+download()
+
+# "https://www.youtube.com/playlist?list=PL9z83dt87nBUz5T9_ZtH71eVhID6JYSqD"
+# "./test"
 
 # for file in os.listdir("test"):
 #     # if glob.glob("./*.mp3"):
@@ -62,16 +68,22 @@ download(
 
 # for file in os.listdir(folder):
 # os.chdir(folder)
-for file in os.listdir(folder):
-    audiofile = eyed3.load("test/Mansionz ft Spark Master Tape - STFU (Massive Vibes Remix).mp3")
+
+
+
+def rename():
+    file = folder + "/" + input("song file: ")
+    audiofile = eyed3.load(file)
                 
     if (audiofile.tag == None):
         audiofile.initTag()
 
-    audiofile.tag.title = u'fuck'
+    audiofile.tag.title = u"fuck"
     audiofile.tag.album = u'fucking'
-    audiofile.tag.images.set(3, open("pics/song.jpg", 'rb').read(), 'image/jpeg')
+    audiofile.tag.artist = u'NQ'
+    audiofile.tag.images.set(3, open("pics/amadeus.jpg", 'rb').read(), 'image/jpeg')
     audiofile.tag.save(version=eyed3.id3.ID3_V2_3)
 
+rename()
 
 
