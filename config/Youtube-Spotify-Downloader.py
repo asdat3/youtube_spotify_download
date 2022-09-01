@@ -19,7 +19,25 @@ import pafy
 
 
 #------------------------------
-# Youtube-Spotify-Downloader
+# Youtube-Video(360p)
+#------------------------------
+def download_360p_mp4_videos(url: str, outpath: str = "./"):
+
+    yt = YouTube(url)
+
+    yt.streams.filter(file_extension="mp4").get_by_resolution("360p").download(outpath)
+
+
+# if __name__ == "__main__":
+
+    # download_360p_mp4_videos(
+    #     "https://www.youtube.com/watch?v=szQr7rhEwyE",
+    #     "./biology presentation",
+    # )
+
+
+#------------------------------
+# Youtube-Audio(Playlist)
 #------------------------------
 
 def download():
@@ -40,6 +58,7 @@ def download():
         print(vid)
     for url in playlist:
         YouTube(url).streams.filter(only_audio=True).first().download(folder)
+    
         
     # for url in playlist:
     #     YouTube(url).streams.first().download("./test")
