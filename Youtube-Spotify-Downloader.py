@@ -1,10 +1,9 @@
 from fileinput import filename
 from importlib.metadata import files
-import random, os, re, requests
+import random, os, re, requests, matplotlib
 from timeit import repeat
 from unicodedata import name
 from pytube import YouTube
-import youtube_dl
 from pytube import Playlist
 import moviepy.editor as mp
 from moviepy.editor import AudioFileClip, ImageClip
@@ -14,11 +13,11 @@ from typer import Typer
 import eyed3.id3
 from eyed3.id3 import Tag
 from eyed3.id3.frames import ImageFrame
-from PIL import Image
 
 #thumbnail
 import pafy
-import music_tag
+from randimage import get_random_image, show_array
+
 
 #------------------------------
 # Youtube-Audio(Playlist)
@@ -49,21 +48,6 @@ def download(playlist_url,folder_input):
 
         os.replace(mp3_path,f'{folder_input}/{filename_temp}.mp3')
 
-def change_icon(filename_parsed):
-    f = music_tag.load_file(filename_parsed)
-    art = f['artwork']
-
-    # set artwork
-    with open('temp/pics/temp_thumbnail.jpg', 'rb') as img_in:
-        f['artwork'] = img_in.read()
-    with open('temp/pics/temp_thumbnail.jpg', 'rb') as img_in:
-        f.append_tag('artwork', img_in.read())
-
-    art.first.thumbnail([64, 64])  # -> pillow image
-    art.first.raw_thumbnail([64, 64])  # -> b'... raw thumbnail data ...'
-
-    f.save()
-
 def rename(folder_bla,song_file_parsed,url_parsed,filename_temp):
     file = folder_bla + "/" + song_file_parsed
     audiofile = eyed3.load(file)
@@ -75,11 +59,12 @@ def rename(folder_bla,song_file_parsed,url_parsed,filename_temp):
     audiofile.tag.album = u"NQ"
     audiofile.tag.artist = u'NQ'
 
-    thumb_file_res = requests.get(get_thumbnail(url_parsed),allow_redirects=True)
-    open('temp/pics/temp_thumbnail.jpg', 'wb').write(thumb_file_res.content)
+    img_size = (480,480)
+    img = get_random_image(img_size)
+    matplotlib.image.imsave("temp/pics/temp_thumbnail.png", img)
     
+    audiofile.tag.images.set(3, open("temp/pics/temp_thumbnail.png", 'rb').read(), 'image/png')
     audiofile.tag.save(version=eyed3.id3.ID3_V2_3)
-    change_icon(file)
     
 
 def get_thumbnail(url_parsed):
