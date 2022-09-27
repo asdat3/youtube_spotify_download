@@ -1,13 +1,10 @@
 from fileinput import filename
 from importlib.metadata import files
 import random, os, re, requests, matplotlib
-from timeit import repeat
-from unicodedata import name
 from pytube import YouTube
 from pytube import Playlist
 import moviepy.editor as mp
 from moviepy.editor import AudioFileClip, ImageClip
-from typer import Typer
 
 #song information
 import eyed3.id3
@@ -71,5 +68,5 @@ def get_thumbnail(url_parsed):
     video_thumb = pafy.new(url_parsed).getbestthumb()
     return(str(video_thumb))
 
-playlist_url = 'https://www.youtube.com/playlist?list=PL9z83dt87nBUHM51eDF42TFJjjP9zshpJ'
+playlist_url = 'https://www.youtube.com/playlist?list=PLh392u5h6rd1s1d-nPgNn_aersQWbAfR5'
 download(playlist_url,'test2')
