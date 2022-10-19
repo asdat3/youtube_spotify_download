@@ -1,6 +1,6 @@
 from fileinput import filename
 from importlib.metadata import files
-import random, os, re, requests, matplotlib
+import random, os, re, requests, matplotlib, shutil
 from pytube import YouTube
 from pytube import Playlist
 import moviepy.editor as mp
@@ -56,9 +56,23 @@ def rename(folder_bla,song_file_parsed,url_parsed,filename_temp):
     audiofile.tag.album = u"NQ"
     audiofile.tag.artist = u'NQ'
 
-    img_size = (480,480)
-    img = get_random_image(img_size)
-    matplotlib.image.imsave("temp/pics/temp_thumbnail.png", img)
+    # img_size = (480,480)
+    # img = get_random_image(img_size)
+    # matplotlib.image.imsave("temp/pics/temp_thumbnail.png", img)
+
+    image_url = YouTube(url_parsed).thumbnail_url
+    filename = image_url.split("/")[-1]
+    r = requests.get(image_url, stream = True)
+    if r.status_code == 200:
+        r.raw.decode_content = True
+        with open("temp/pics/temp_thumbnail.png",'wb') as f:
+            shutil.copyfileobj(r.raw, f)
+            
+        print('Image sucessfully Downloaded: ',filename)
+    else:
+        img_size = (480,480)
+        img = get_random_image(img_size)
+        matplotlib.image.imsave("temp/pics/temp_thumbnail.png", img)
     
     audiofile.tag.images.set(3, open("temp/pics/temp_thumbnail.png", 'rb').read(), 'image/png')
     audiofile.tag.save(version=eyed3.id3.ID3_V2_3)
