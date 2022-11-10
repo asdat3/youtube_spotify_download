@@ -82,5 +82,4 @@ def get_thumbnail(url_parsed):
     video_thumb = pafy.new(url_parsed).getbestthumb()
     return(str(video_thumb))
 
-playlist_url = 'https://www.youtube.com/playlist?list=PLh392u5h6rd1s1d-nPgNn_aersQWbAfR5'
-download(playlist_url,'test2')
+download('https://www.youtube.com/playlist?list=PLh392u5h6rd1s1d-nPgNn_aersQWbAfR5','test2')
