@@ -24,11 +24,14 @@ def download(playlist_url,folder_input):
     bar = Bar('Total', max=len(playlist))
     for vid_url in playlist:
         bar.next()
-        YouTube(vid_url).streams.get_highest_resolution().download('temp/temp')
+        try:
+            YouTube(vid_url).streams.get_highest_resolution().download('temp/temp')
 
-        filename_temp = os.listdir('temp/temp')[0].replace('.mp4','').replace('.mp3','')
-        mp4_path = 'temp/temp/' + os.listdir('temp/temp')[0]
-        os.replace(mp4_path,f'{folder_input}/{filename_temp}.mp4')
+            filename_temp = os.listdir('temp/temp')[0].replace('.mp4','').replace('.mp3','')
+            mp4_path = 'temp/temp/' + os.listdir('temp/temp')[0]
+            os.replace(mp4_path,f'{folder_input}/{filename_temp}.mp4')
+        except:
+            pass
     bar.finish()
 
-download('https://www.youtube.com/playlist?list=PLh392u5h6rd1s1d-nPgNn_aersQWbAfR5','vids')
+download('https://www.youtube.com/playlist?list=PLPLdt6xG1KHxaCSYBIMPmU7RNKhMVhor9','vids')
