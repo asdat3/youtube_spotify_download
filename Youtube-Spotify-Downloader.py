@@ -34,4 +34,4 @@ def download(playlist_url,folder_input):
             pass
     bar.finish()
 
-download('https://www.youtube.com/playlist?list=PLPLdt6xG1KHxaCSYBIMPmU7RNKhMVhor9','vids')
+download('https://www.youtube.com/playlist?list=PLh392u5h6rd23Yjzgpksz6bAZKiA5vA1R','vids')
