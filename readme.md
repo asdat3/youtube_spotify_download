@@ -17,7 +17,7 @@ I just had to push something, 2y ago me was embarrassing :/
 1. Clone the repository:
    ```bash
    git clone https://github.com/asdat3/youtube_spotify_download.git
-   cd your-repo-name
+   cd youtube_spotify_download
    ```
 
 2. Install the required Python packages:
@@ -39,19 +39,12 @@ I just had to push something, 2y ago me was embarrassing :/
 
 ### Command Line
 
-1. Run the script with a YouTube playlist URL:
+1. Edit the `main.py` to customize your settings
+
+2. Run the script with a YouTube playlist URL:
    ```bash
-   python main.py --playlist-url "<PLAYLIST_URL>" --output-dir "<OUTPUT_DIRECTORY>"
+   python main.py
    ```
-
-2. Options:
-   - `--playlist-url`: URL of the YouTube playlist.
-   - `--output-dir`: Directory where MP3 files will be saved (default: `./output`).
-
-### Example
-```bash
-python main.py --playlist-url "https://www.youtube.com/playlist?list=PL12345ABC" --output-dir "./music"
-```
 
 ---
 
