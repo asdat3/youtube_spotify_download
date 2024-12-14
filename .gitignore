@@ -1,7 +1,8 @@
-
 *.mp3
-temp/pics/temp_thumbnail.png
 *.png
 *.mp4
 *.png
 *.jpg
+
+venv
+temp
