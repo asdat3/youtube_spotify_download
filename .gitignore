@@ -1,0 +1,8 @@
+*.mp3
+*.png
+*.mp4
+*.png
+*.jpg
+
+venv
+temp
